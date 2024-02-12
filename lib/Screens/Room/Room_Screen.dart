@@ -1,9 +1,13 @@
 // ignore_for_file: file_names
 
+import 'package:dropdown_search/dropdown_search.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:homecarrental/Screens/Room/Room_Controller.dart';
 import 'package:toggle_switch/toggle_switch.dart';
 
-import '../../Core/App_Color.dart';
+import '../../Core/Funcation/Hotel_Service.dart';
+import '../../Utils/App_Color.dart';
 
 class RoomScreen extends StatefulWidget {
   const RoomScreen({super.key});
@@ -13,6 +17,7 @@ class RoomScreen extends StatefulWidget {
 }
 
 class _RoomScreenState extends State<RoomScreen> {
+  RoomController controller = Get.put(RoomController());
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -54,12 +59,12 @@ class _RoomScreenState extends State<RoomScreen> {
           )
         ],
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
+      body: Padding(
+        padding: const EdgeInsets.all(10.0),
+        child: SingleChildScrollView(
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              // Here, default theme colors are used for activeBgColor, activeFgColor, inactiveBgColor and inactiveFgColor
               ToggleSwitch(
                 minWidth: double.infinity,
                 initialLabelIndex: 0,
@@ -67,14 +72,58 @@ class _RoomScreenState extends State<RoomScreen> {
                 animate: true,
                 animationDuration: 150,
                 totalSwitches: 2,
-                activeBgColor: [AppColors.primaryBlue],
-                borderColor: [AppColors.primaryBlue],
+                activeBgColor: const [AppColors.primaryBlue],
+                borderColor: const [AppColors.primaryBlue],
                 activeBorders: [Border.all(color: AppColors.primaryBlue)],
                 inactiveBgColor: AppColors.white,
                 inactiveFgColor: AppColors.primaryBlue,
-                labels: ['Hotels', 'Villas'],
+                labels: const ['Hotels', 'Villas'],
                 onToggle: (index) {},
               ),
+              const SizedBox(
+                height: 20,
+              ),
+              FutureBuilder(
+                future:
+                    getNearestHotels(), // Call getNearestHotels() function here
+                builder: (BuildContext context,
+                    AsyncSnapshot<List<String>> snapshot) {
+                  if (snapshot.connectionState == ConnectionState.waiting) {
+                    // Return a loading indicator while waiting for the future to complete
+                    return CircularProgressIndicator();
+                  } else if (snapshot.hasError || snapshot.data == null) {
+                    // Return an error message if an error occurred or no data found
+                    return Text('No data found or error: ${snapshot.error}');
+                  } else {
+                    // Return the DropdownSearch widget with the list of nearest hotels as items
+                    return DropdownSearch<String>(
+                      popupProps: const PopupProps.menu(
+                        showSelectedItems: true,
+                      ),
+                      items: snapshot.data!,
+                      dropdownDecoratorProps: const DropDownDecoratorProps(
+                        dropdownSearchDecoration: InputDecoration(
+                          suffixIconColor: AppColors.primaryBlue,
+                          disabledBorder: InputBorder.none,
+                          iconColor: AppColors.primaryBlue,
+                          icon: Icon(
+                            Icons.location_on_outlined,
+                            color: AppColors.primaryBlue,
+                            size: 24,
+                          ),
+                          labelText: "Where do you want",
+                          labelStyle: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.primaryBlue,
+                            fontFamily: 'pop',
+                          ),
+                        ),
+                      ),
+                    );
+                  }
+                },
+              )
             ],
           ),
         ),

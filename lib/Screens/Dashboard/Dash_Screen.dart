@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:homecarrental/Core/App_Color.dart';
+import 'package:homecarrental/Utils/App_Color.dart';
 import 'package:homecarrental/Screens/Dashboard/Dash_Controller.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 

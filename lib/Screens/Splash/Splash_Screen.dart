@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:homecarrental/Core/App_Color.dart';
+import 'package:homecarrental/Utils/App_Color.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -22,7 +22,12 @@ class _SplashScreenState extends State<SplashScreen> {
     // Delay for 3 seconds
     await Future.delayed(const Duration(seconds: 3));
     // Navigate to signup screen
-    Get.offNamed('/signup');
+    // Get.offNamed('/signup');
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
   }
 
   @override
@@ -47,12 +52,12 @@ class _SplashScreenState extends State<SplashScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
-              backgroundColor: Colors.white,
+              backgroundColor: AppColors.white,
               radius: 50,
               child: Icon(
                 Icons.app_shortcut,
                 size: 50,
-                color: Colors.blue,
+                color: AppColors.primaryBlue,
               ),
             ),
             SizedBox(
@@ -73,3 +78,4 @@ class _SplashScreenState extends State<SplashScreen> {
     );
   }
 }
+

@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:homecarrental/Core/App_Color.dart';
+import 'package:homecarrental/Utils/App_Color.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 class SignUpScreen extends StatefulWidget {
@@ -42,7 +42,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
               ),
               Container(
                 height: MediaQuery.of(context).size.height * 0.8,
-                width: MediaQuery.of(context).size.width * 1,
+                width: double.infinity,
                 decoration: BoxDecoration(
                     color: AppColors.white,
                     borderRadius: BorderRadius.circular(30)),
@@ -55,7 +55,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       children: [
                         TextFormField(
                           keyboardType: TextInputType.text,
-                          cursorColor: Colors.black,
+                          cursorColor: AppColors.black,
                           decoration: InputDecoration(
                             prefixIcon: const Icon(
                               Icons.person,
@@ -150,6 +150,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           keyboardType: TextInputType.number,
                           cursorColor: AppColors.black,
                           disableLengthCheck: true,
+                          dropdownDecoration: BoxDecoration(),
                           decoration: InputDecoration(
                             prefixIcon: const Icon(
                               Icons.email,
@@ -229,7 +230,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 20,
                         ),
                         ElevatedButton(
-                          onPressed: () { 
+                          onPressed: () {
                             if (_formKey.currentState!.validate()) {
                               Get.toNamed('/verify');
                             }
@@ -264,40 +265,46 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           height: 30,
                         ),
                         Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
+                            Expanded(
+                              child: Container(
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  color: AppColors.primaryBlue,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Facebook',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: AppColors.white,
+                                      fontFamily: 'pop',
+                                    ),
                                   ),
-                                  fixedSize: const Size.fromWidth(150),
-                                  elevation: 0,
-                                  backgroundColor: AppColors.primaryBlue),
-                              child: const Text(
-                                'Facebook',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.white,
-                                    fontFamily: 'pop'),
+                                ),
                               ),
                             ),
-                            ElevatedButton(
-                              onPressed: () {},
-                              style: ElevatedButton.styleFrom(
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(10),
+                            SizedBox(
+                              width: 10,
+                            ),
+                            Expanded(
+                              child: Container(
+                                height: 45,
+                                decoration: BoxDecoration(
+                                  color: AppColors.red,
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: Center(
+                                  child: Text(
+                                    'Google',
+                                    style: TextStyle(
+                                      fontSize: 18,
+                                      color: AppColors.white,
+                                      fontFamily: 'pop',
+                                    ),
                                   ),
-                                  fixedSize: const Size.fromWidth(150),
-                                  elevation: 0,
-                                  backgroundColor: AppColors.red),
-                              child: const Text(
-                                'Google',
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    color: AppColors.white,
-                                    fontFamily: 'pop'),
+                                ),
                               ),
                             ),
                           ],
@@ -334,7 +341,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Get.toNamed('/login');
                           },
                           child: RichText(
-                            text:  const TextSpan(
+                            text: const TextSpan(
                               text: 'Already have an account? ',
                               style: TextStyle(
                                 fontSize: 14,
